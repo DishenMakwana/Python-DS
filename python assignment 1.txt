@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+class number_splitter:  # class to split the number
+
+    def __init__(self):  # initialize number with None values
+        self.number = None
+        self.split = None
+
+    def valid_num(self, n):
+        return n.isdigit() and n[0] != '-'  # check if it is whole number
+
+    def input_number(self):  # function to take a number
+        while True:  # looping until user does not enter valid number
+            self.number = input("Input large whole number: ")  # input whole number
+            if self.valid_num(self.number):  # check if it is whole number
+                break
+            print("Input must be a whole number. Try again.")  # if not whole number than ask again for input
+
+    def input_split(self):  # function to take spit number
+        while True:  # loop to check validation if validation is true than break it
+            self.split = input("Input the split (whole number): ")  # input whole number
+            if self.valid_num(self.split):  # check if it is whole number
+                if len(self.number) % int(self.split) == 0:  # check if the split is valid or not
+                    break
+                print(f"{self.number} must be evenly divisible by {self.split}")  # print error message
+                print("Try again.")
+            else:  # if not then print error message
+                print("Input must be a whole number. Try again.")  # if not whole number than ask again for input
+
+    def print_spit_num(self):
+
+        split_numbers = []  # initialize list
+        i = 0
+        while i < len(self.number):
+            split_numbers.append("".join(self.number[i:i + int(self.split)]))  # add number to list
+            i += int(self.split)
+
+        print(", ".join(split_numbers))  # print numbers
+
+        increasing = True  # increasing flag
+        for i in range(len(split_numbers) - 1):
+            if split_numbers[i] >= split_numbers[i + 1]:  # check if number is increasing
+                print("Sequence is  not increasing")
+                increasing = False  # make increasing flag false
+                break
+        if increasing:
+            print("Sequence is increasing")
+
+
+def main():
+    ns = number_splitter()  # create a object of class number_splitter
+    ns.input_number()  # call input_number method
+    ns.input_split()  # call input_split method
+    ns.print_spit_num()  # print the desired output
+
+
+main()  # calling main function
